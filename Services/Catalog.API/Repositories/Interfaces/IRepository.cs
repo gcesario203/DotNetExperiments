@@ -2,7 +2,7 @@ using Catalog.API.Entities.Interfaces;
 
 namespace Catalog.API.Repositories.Interfaces
 {
-    public interface IRepository<T> where T : IEntity
+    public interface IProductRepository<T> where T : IEntity
     {
         Task<IEnumerable<T>> GetItems();
 
@@ -13,5 +13,9 @@ namespace Catalog.API.Repositories.Interfaces
         Task<bool> UpdateItem(T item);
 
         Task<bool> DeleteItem(string id);
+
+        Task<IEnumerable<T>> GetItemByName(string name);
+
+        Task<IEnumerable<T>> GetItemByCategory(string categoryName);
     }
 }

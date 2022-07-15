@@ -1,6 +1,8 @@
 using Catalog.API.Data;
 using Catalog.API.Data.Interfaces;
 using Catalog.API.Entities;
+using Catalog.API.Repositories;
+using Catalog.API.Repositories.Interfaces;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,7 @@ builder.Services.AddSingleton<MongoDbUnitOfWork>(s => {
 
 builder.Services.AddScoped<IMongoContextSeeder<Product>, CatalogContextSeed>();
 builder.Services.AddScoped<IMongoContext<Product>, CatalogContext >();
+builder.Services.AddScoped<IProductRepository<Product>, ProductRepository >();
 
 // System.Console.WriteLine(builder.Services.Select(x => x.ImplementationType).Select(x => x.AssemblyQualifiedName));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

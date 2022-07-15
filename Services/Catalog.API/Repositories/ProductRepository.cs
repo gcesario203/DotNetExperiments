@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Catalog.API.Repositories
 {
-    public class ProductRepository : IRepository<Product>
+    public class ProductRepository : IProductRepository<Product>
     {
         private readonly IMongoContext<Product> _context;
 
@@ -14,7 +14,6 @@ namespace Catalog.API.Repositories
             _context = context;
         }
 
-        #region Métodos da Interface
         public async Task CreateItem(Product item)
         {
             await _context.Collection.InsertOneAsync(item);
@@ -49,10 +48,7 @@ namespace Catalog.API.Repositories
             return updateResult.IsAcknowledged
                     && updateResult.ModifiedCount > 0;
         }
-        #endregion
-
-        #region Métodos específicos
-        public async Task<IEnumerable<Product>> GetProductByName(string name)
+        public async Task<IEnumerable<Product>> GetItemByName(string name)
         {
             var filter = _context.FilterBuilder().Regex(p => p.Name, $"/{name}/i");
 
@@ -62,7 +58,7 @@ namespace Catalog.API.Repositories
                             .ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
+        public async Task<IEnumerable<Product>> GetItemByCategory(string categoryName)
         {
             var filter = _context.FilterBuilder().Regex(p => p.Category, $"/{categoryName}/i");
 
@@ -71,6 +67,5 @@ namespace Catalog.API.Repositories
                             .Find(filter)
                             .ToListAsync();
         }
-        #endregion
     }
 }

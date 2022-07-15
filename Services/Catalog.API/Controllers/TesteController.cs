@@ -17,6 +17,6 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Teste() => Ok(_catalog._collection.Find(x => true).ToList());
+        public IActionResult Teste() => Ok(_catalog.Collection.Find(x => true).ToList());
     }
 }

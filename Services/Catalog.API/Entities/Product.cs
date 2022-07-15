@@ -1,8 +1,10 @@
 using Catalog.API.Entities.Base;
+using Catalog.API.Utils.Attributes;
 
 namespace Catalog.API.Entities
 {
-    public class Product : BaseEntity
+    [CollectionName("Products")]
+    public class Product : Entity
     {
         public string Name { get; set; }
         public string Category { get; set; }

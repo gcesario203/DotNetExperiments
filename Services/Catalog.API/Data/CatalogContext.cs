@@ -1,19 +1,14 @@
+using Catalog.API.Data.Base;
 using Catalog.API.Data.Interfaces;
 using Catalog.API.Entities;
 using MongoDB.Driver;
 
 namespace Catalog.API.Data
 {
-    public class CatalogContext : IContext<Product>
+    public class CatalogContext : MongoContext<Product>
     {
-        private readonly MongoDbUnitOfWork _unitOfWork;
-        public IMongoCollection<Product> _collection {get;}
-
-        public CatalogContext(MongoDbUnitOfWork unitOfWork)
+        public CatalogContext(MongoDbUnitOfWork unitOfWork, IMongoContextSeeder<Product> seeder) : base(unitOfWork, seeder)
         {
-            _unitOfWork = unitOfWork;
-
-            _collection = unitOfWork.GetCollection<Product>();
         }
     }
 }

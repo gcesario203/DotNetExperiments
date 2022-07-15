@@ -14,6 +14,7 @@ builder.Services.AddSingleton<MongoDbUnitOfWork>(s => {
     return new MongoDbUnitOfWork(mongoClient, mongoDataBase);
 });
 
+builder.Services.AddScoped<IMongoContextSeeder<Product>, CatalogContextSeed>();
 builder.Services.AddScoped<IContext<Product>, CatalogContext >();
 
 // System.Console.WriteLine(builder.Services.Select(x => x.ImplementationType).Select(x => x.AssemblyQualifiedName));

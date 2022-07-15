@@ -10,7 +10,7 @@ builder.Services.AddSingleton<IUnitOfWork>(s => {
     var mongoClient = new MongoClient(builder.Configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
     var mongoDataBase = mongoClient.GetDatabase(builder.Configuration.GetValue<string>("DatabaseSettings:DatabaseName"));
 
-    return new UnitOfWork(mongoClient, mongoDataBase);
+    return new MongoDbUnitOfWork(mongoClient, mongoDataBase);
 });
 
 // System.Console.WriteLine(builder.Services.Select(x => x.ImplementationType).Select(x => x.AssemblyQualifiedName));

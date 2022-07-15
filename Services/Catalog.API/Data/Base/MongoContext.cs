@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Catalog.API.Data.Base
 {
-    public abstract class MongoContext<T> : IContext<T> where T : IEntity
+    public abstract class MongoContext<T> : IMongoContext<T> where T : IEntity
     {
         private readonly MongoDbUnitOfWork _unitOfWork;
         public IMongoCollection<T> _collection { get; }

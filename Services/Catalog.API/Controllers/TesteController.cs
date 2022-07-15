@@ -10,8 +10,8 @@ namespace Catalog.API.Controllers
     [Route("/api/[controller]/[action]")]
     public class TesteController : ControllerBase
     {
-        private readonly IContext<Product> _catalog;
-        public TesteController(IContext<Product> catalog)
+        private readonly IMongoContext<Product> _catalog;
+        public TesteController(IMongoContext<Product> catalog)
         {
             _catalog = catalog;
         }

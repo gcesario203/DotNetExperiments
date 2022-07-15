@@ -15,7 +15,7 @@ builder.Services.AddSingleton<MongoDbUnitOfWork>(s => {
 });
 
 builder.Services.AddScoped<IMongoContextSeeder<Product>, CatalogContextSeed>();
-builder.Services.AddScoped<IContext<Product>, CatalogContext >();
+builder.Services.AddScoped<IMongoContext<Product>, CatalogContext >();
 
 // System.Console.WriteLine(builder.Services.Select(x => x.ImplementationType).Select(x => x.AssemblyQualifiedName));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

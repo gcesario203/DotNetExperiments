@@ -1,5 +1,6 @@
 using Catalog.API.Data.Interfaces;
-using Catalog.API.Entities;
+using Catalog.API.Entities.Interfaces;
+using Catalog.API.Utils.Utility;
 using MongoDB.Driver;
 
 namespace Catalog.API.Data
@@ -15,6 +16,13 @@ namespace Catalog.API.Data
 
             _client = client;
             _database = database;
+        }
+
+        public IMongoCollection<T> GetCollection<T>() where T : IEntity
+        {
+            var collectionName = StringUtils.GetCollectionName<T>();
+
+            return _database.GetCollection<T>(collectionName);
         }
 
         public async void CreateSession()

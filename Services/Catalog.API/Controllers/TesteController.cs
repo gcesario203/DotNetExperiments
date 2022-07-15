@@ -10,10 +10,13 @@ namespace Catalog.API.Controllers
     [Route("/api/[controller]/[action]")]
     public class TesteController : ControllerBase
     {
-        private IUnitOfWork _catalog;
-        public TesteController(IUnitOfWork catalog)
+        private readonly IContext<Product> _catalog;
+        public TesteController(IContext<Product> catalog)
         {
             _catalog = catalog;
         }
+
+        [HttpGet]
+        public IActionResult Teste() => Ok(_catalog._collection.Find(x => true).ToList());
     }
 }

@@ -15,12 +15,5 @@ namespace Catalog.API.Controllers
         {
             _catalog = catalog;
         }
-
-        [HttpGet]
-        public IActionResult Teste()
-        {
-            var teste = _catalog.Database.GetCollection<Product>(StringUtils.GetCollectionName<Product>()).Find(x => true).ToList();
-            return Ok(teste);
-        }
     }
 }

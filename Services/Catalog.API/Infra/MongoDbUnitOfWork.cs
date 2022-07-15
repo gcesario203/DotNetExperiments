@@ -6,10 +6,8 @@ namespace Catalog.API.Data
 {
     public class MongoDbUnitOfWork : IUnitOfWork
     {
-        private IMongoClient _client;
-        public IMongoClient Client { get => _client; }
-        private IMongoDatabase _database;
-        public IMongoDatabase Database { get => _database; }
+        private readonly IMongoClient _client;
+        private readonly IMongoDatabase _database;
         public IClientSessionHandle Session { get; set; }
 
         public MongoDbUnitOfWork(IMongoClient client, IMongoDatabase database)
@@ -21,7 +19,7 @@ namespace Catalog.API.Data
 
         public async void CreateSession()
         {
-            Session = await Client.StartSessionAsync();
+            Session = await _client.StartSessionAsync();
 
             Session.StartTransaction();
         }

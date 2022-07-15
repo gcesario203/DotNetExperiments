@@ -25,14 +25,14 @@ namespace Catalog.API.Data
             return _database.GetCollection<T>(collectionName);
         }
 
-        public async void CreateSession()
+        public async void CreateSessionAsync()
         {
             Session = await _client.StartSessionAsync();
 
             Session.StartTransaction();
         }
 
-        public async void Commit()
+        public async void CommitAsync()
         {
             if (Session == null || !Session.IsInTransaction)
                 return;
@@ -40,7 +40,7 @@ namespace Catalog.API.Data
             await Session.CommitTransactionAsync();
         }
 
-        public async void Rollback()
+        public async void RollbackAsync()
         {
             if (Session == null || !Session.IsInTransaction)
                 return;
@@ -54,6 +54,29 @@ namespace Catalog.API.Data
                 Thread.Sleep(TimeSpan.FromMilliseconds(100));
 
             GC.SuppressFinalize(this);
+        }
+
+        public void CreateSession()
+        {
+            Session = _client.StartSession();
+
+            Session.StartTransaction();
+        }
+
+        public void Commit()
+        {
+            if (Session == null || !Session.IsInTransaction)
+                return;
+
+            Session.CommitTransaction();
+        }
+
+        public void Rollback()
+        {
+            if (Session == null || !Session.IsInTransaction)
+                return;
+
+            Session.AbortTransaction();
         }
     }
 }

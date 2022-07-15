@@ -9,5 +9,8 @@ namespace Catalog.API.Data.Interfaces
         void CreateSession();
         void Commit();
         void Rollback();
+        void CreateSessionAsync();
+        void CommitAsync();
+        void RollbackAsync();
     }
 }

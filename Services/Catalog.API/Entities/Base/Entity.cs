@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Catalog.API.Entities.Base
 {
-    public class Entity : IEntity
+    public abstract class Entity : IEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

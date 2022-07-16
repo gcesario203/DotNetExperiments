@@ -155,20 +155,4 @@ public class CatalogControllerTests
         // System.Console.WriteLine(result.Result);
         Assert.IsType<OkObjectResult>(result as OkObjectResult);
     }
-    [Fact, TestPriority(8)]
-    public async void GetItems_ShouldHaveSixItems()
-    {
-
-        var repoStub = new Mock<IProductRepository<Product>>();
-        var loggerStub = new Mock<ILogger<CatalogController>>();
-
-        var controller = new CatalogController(Constants.ProductRepository, loggerStub.Object);
-
-        var items = await Constants.ProductRepository.GetItems();
-
-        repoStub.Setup(_ => _.GetItems()).Returns(Task.FromResult(items));
-
-        // System.Console.WriteLine(result.Result);
-        Assert.Equal(6, (decimal)items.Count());
-    }
 }

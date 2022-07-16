@@ -14,9 +14,16 @@ namespace Catalog.API.Repositories
             _context = context;
         }
 
-        public async Task CreateItem(Product item)
+        public async Task<Product> CreateItem(Product item)
         {
+            var checkProduct = await GetItem(item.Id);
+            
+            if( checkProduct != null)
+                return null;
+            
             await _context.Collection.InsertOneAsync(item);
+
+            return item;
         }
 
         public async Task<bool> DeleteItem(string id)

@@ -8,7 +8,7 @@ namespace Catalog.API.Repositories.Interfaces
 
         Task<T> GetItem(string id);
 
-        Task CreateItem(T item);
+        Task<T> CreateItem(T item);
 
         Task<bool> UpdateItem(T item);
 

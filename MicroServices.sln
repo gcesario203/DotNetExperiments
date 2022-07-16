@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog.API\Catalog.API.csproj", "{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTests", "Services\Catalog.UnitTests\Catalog.UnitTests.csproj", "{5BA3C208-E9F9-436C-B51E-09161A80E74B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA3C208-E9F9-436C-B51E-09161A80E74B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA3C208-E9F9-436C-B51E-09161A80E74B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA3C208-E9F9-436C-B51E-09161A80E74B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA3C208-E9F9-436C-B51E-09161A80E74B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA} = {D991C8A8-C2B4-43AD-A3E5-9C2E5C5F6098}
+		{5BA3C208-E9F9-436C-B51E-09161A80E74B} = {D991C8A8-C2B4-43AD-A3E5-9C2E5C5F6098}
 	EndGlobalSection
 EndGlobal

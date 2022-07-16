@@ -16,7 +16,8 @@ namespace Catalog.API.Data.Base
 
             Collection = unitOfWork.GetCollection<T>();
 
-            seeder.SeedData(Collection);
+            if(seeder != null)
+                seeder.SeedData(Collection);
         }
 
         public FilterDefinitionBuilder<T> FilterBuilder()

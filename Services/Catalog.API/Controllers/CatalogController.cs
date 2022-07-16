@@ -61,8 +61,14 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
         {
-            await _repository.CreateItem(product);
+            var createdProduct = await _repository.CreateItem(product);
             
+            if (createdProduct == null)
+            {
+                _logger.LogError($"Product with id: {product.Id}, not found.");
+                return BadRequest();
+            }
+
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
 

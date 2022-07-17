@@ -21,6 +21,7 @@ services:
     environment:
       - DatabaseSettings:ConnectionString=mongodb://catalogdb:27017
       - DatabaseSettings:DatabaseName=CatalogDb
+      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - catalogdb
     build:

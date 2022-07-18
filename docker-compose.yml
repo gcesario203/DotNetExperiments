@@ -4,6 +4,7 @@ version: '3.4'
 
 volumes:
   mongo_data:
+  portainer_data:
   
 services:
   basketdb:
@@ -12,6 +13,7 @@ services:
     restart: always
     ports:
       - 6379:6379
+
   catalogdb:
     image: mongo
     container_name: catalogdb
@@ -20,6 +22,17 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    ports:
+      - 8000:8000
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
   
   catalogapi:
     image: catalogapi

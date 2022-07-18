@@ -6,6 +6,12 @@ volumes:
   mongo_data:
   
 services:
+  basketdb:
+    image: redis
+    container_name: basketdb
+    restart: always
+    ports:
+      - 6379:6379
   catalogdb:
     image: mongo
     container_name: catalogdb
@@ -14,7 +20,7 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
-
+  
   catalogapi:
     image: catalogapi
     container_name: catalogapi
@@ -29,3 +35,17 @@ services:
       dockerfile: Services/Catalog.API/Dockerfile
     ports:
       - 5000:5000
+    
+  basketapi:
+    image: basketapi
+    container_name: basketapi
+    environment:
+      - CacheSettings:ConnectionString=basketdb:6379
+      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - basketdb
+    build:
+      context: .
+      dockerfile: Services/Basket.API/Dockerfile
+    ports:
+      - 5001:5001

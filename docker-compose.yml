@@ -5,6 +5,7 @@ version: '3.4'
 volumes:
   mongo_data:
   portainer_data:
+  postgres_data:
   
 services:
   basketdb:
@@ -13,6 +14,19 @@ services:
     restart: always
     ports:
       - 6379:6379
+
+  discountdb:
+    image: postgres
+    container_name: discountdb
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=DiscountDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
 
   catalogdb:
     image: mongo
@@ -62,3 +76,14 @@ services:
       dockerfile: Services/Basket.API/Dockerfile
     ports:
       - 5001:5001
+
+  discountapi:
+    image: discountapi
+    container_name: discountapi
+    depends_on:
+      - discountdb
+    build:
+      context: .
+      dockerfile: Services/Discount.API/Dockerfile
+    ports:
+      - 5002:5002

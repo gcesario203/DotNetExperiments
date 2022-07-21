@@ -18,9 +18,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Services/Catalog.API/bin/Debug/net6.0/Catalog.API.dll",
+            "program": "${workspaceFolder}/Services/Discount.API/bin/Debug/net6.0/Discount.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Services/Catalog.API",
+            "cwd": "${workspaceFolder}/Services/Discount.API",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

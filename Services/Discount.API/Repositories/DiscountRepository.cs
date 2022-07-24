@@ -75,5 +75,12 @@ namespace Discount.API.Repositories
                 return false;
             }
         }
+
+        public async Task<IEnumerable<CouponDTO>> GetDiscounts()
+        {
+            var coupons = await _context.Coupons.ToListAsync();
+
+            return coupons.Select(coupon => _mapper.Map<CouponDTO>(coupon));
+        }
     }
 }

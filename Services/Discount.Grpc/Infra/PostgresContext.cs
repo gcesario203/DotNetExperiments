@@ -10,10 +10,6 @@ namespace Discount.Grpc.Infra
         
         public PostgresContext(DbContextOptions configs) : base(configs)
         {
-
-            Database.Migrate();
-
-            Database.EnsureCreated();
         }
     }
 }

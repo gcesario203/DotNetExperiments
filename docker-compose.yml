@@ -75,20 +75,6 @@ services:
       dockerfile: Services/Catalog.API/Dockerfile
     ports:
       - 5000:5000
-    
-  basketapi:
-    image: basketapi
-    container_name: basketapi
-    environment:
-      - CacheSettings:ConnectionString=basketdb:6379
-      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      - basketdb
-    build:
-      context: .
-      dockerfile: Services/Basket.API/Dockerfile
-    ports:
-      - 5001:5001
 
   discountapi:
     image: discountapi
@@ -103,3 +89,32 @@ services:
       dockerfile: Services/Discount.API/Dockerfile
     ports:
       - 5002:5002
+
+  discountgrpc:
+    image: discountgrpc
+    container_name: discountgrpc
+    depends_on:
+      - discountdb
+    environment:
+      - DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=root;Password=root;
+      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: Services/Discount.Grpc/Dockerfile
+    ports:
+      - 5003:5003
+
+  basketapi:
+    image: basketapi
+    container_name: basketapi
+    environment:
+      - CacheSettings:ConnectionString=basketdb:6379
+      - GrpcSettings:DiscountUrl=http://discountgrpc:5003
+      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - basketdb
+    build:
+      context: .
+      dockerfile: Services/Basket.API/Dockerfile
+    ports:
+      - 5001:5001

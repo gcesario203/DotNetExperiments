@@ -1,6 +1,9 @@
+using AutoMapper;
+using Basket.API.Config;
 using Basket.API.Repositories;
 using Basket.API.Repositories.Interfaces;
 using Basket.API.Services;
+using Basket.API.Services.Interfaces;
 using Discount.Grpc.Protos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +14,18 @@ builder.Services.AddStackExchangeRedisCache(options =>{
     options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
 });
 
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 System.Console.WriteLine(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl"));
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(x => x.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl")));
 
-builder.Services.AddScoped<DiscountService>();
+builder.Services.AddScoped<IDiscountService, DiscountGrpcService>();
 
 builder.Services.AddControllers();
 

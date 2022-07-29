@@ -2,6 +2,7 @@ using System.Net;
 using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
 using Basket.API.Services;
+using Basket.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.API.Controllers
@@ -13,9 +14,9 @@ namespace Basket.API.Controllers
         private readonly IBasketRepository _repo;
         private readonly ILogger<BasketController> _logger;
 
-        private readonly DiscountService _discountService;
+        private readonly IDiscountService _discountService;
 
-        public BasketController(IBasketRepository repository, ILogger<BasketController> logger, DiscountService discountService)
+        public BasketController(IBasketRepository repository, ILogger<BasketController> logger, IDiscountService discountService)
         {
             _repo = repository;
             _logger = logger;

@@ -2,11 +2,11 @@ using MediatR;
 
 namespace Ordering.Application.Features.Orders.Queries.GetOrdersList
 {
-    public class GetOrdersList : IRequest<List<OrderDTO>>
+    public class GetOrdersListQuery : IRequest<List<OrderViewModel>>
     {
         public string UserName { get; set; }
 
-        public GetOrdersList(string userName)
+        public GetOrdersListQuery(string userName)
         {
             UserName = userName;
         }

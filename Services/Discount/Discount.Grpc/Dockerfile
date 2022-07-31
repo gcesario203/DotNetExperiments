@@ -11,10 +11,10 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
-COPY ["Services/Discount.Grpc/Discount.Grpc.csproj", "Services/Discount.Grpc/"]
-RUN dotnet restore "Services/Discount.Grpc/Discount.Grpc.csproj"
+COPY ["Services/Discount/Discount.Grpc/Discount.Grpc.csproj", "Services/Discount/Discount.Grpc/"]
+RUN dotnet restore "Services/Discount/Discount.Grpc/Discount.Grpc.csproj"
 COPY . .
-WORKDIR "/src/Services/Discount.Grpc"
+WORKDIR "/src/Services/Discount/Discount.Grpc"
 RUN dotnet build "Discount.Grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish

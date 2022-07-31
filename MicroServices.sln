@@ -5,17 +5,17 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D991C8A8-C2B4-43AD-A3E5-9C2E5C5F6098}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog.API\Catalog.API.csproj", "{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{34679EE2-4ABD-4F62-B8D3-CD2B4A3D65FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTests", "Services\Catalog.UnitTests\Catalog.UnitTests.csproj", "{5BA3C208-E9F9-436C-B51E-09161A80E74B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTests", "Services\Catalog\Catalog.UnitTests\Catalog.UnitTests.csproj", "{5BA3C208-E9F9-436C-B51E-09161A80E74B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket.API\Basket.API.csproj", "{037BA858-C4B1-4D8D-BA3F-9E8037D5967A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{037BA858-C4B1-4D8D-BA3F-9E8037D5967A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.UnitTests", "Services\Basket.UnitTests\Basket.UnitTests.csproj", "{3D652DA6-C365-4FBA-A896-ABB9E8EAEF0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.UnitTests", "Services\Basket\Basket.UnitTests\Basket.UnitTests.csproj", "{3D652DA6-C365-4FBA-A896-ABB9E8EAEF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.API", "Services\Discount.API\Discount.API.csproj", "{12F7C72C-1BE7-43EB-BC19-20147EE54873}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.API", "Services\Discount\Discount.API\Discount.API.csproj", "{12F7C72C-1BE7-43EB-BC19-20147EE54873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.Grpc", "Services\Discount.Grpc\Discount.Grpc.csproj", "{9507802A-012E-4213-A645-71C8D85C303A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discount.Grpc", "Services\Discount\Discount.Grpc\Discount.Grpc.csproj", "{9507802A-012E-4213-A645-71C8D85C303A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

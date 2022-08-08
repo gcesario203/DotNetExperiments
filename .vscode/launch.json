@@ -14,13 +14,13 @@
             }
         },
         {
-            "name": ".NET Core Launch (web)",
+            "name": "Ordering.API",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Services/Discount.API/bin/Debug/net6.0/Discount.API.dll",
+            "program": "${workspaceFolder}/Services/Ordering/Ordering.API/bin/Debug/net6.0/Ordering.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Services/Discount.API",
+            "cwd": "${workspaceFolder}/Services/Ordering/Ordering.API",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

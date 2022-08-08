@@ -7,8 +7,9 @@ volumes:
   portainer_data:
   postgres_data:
   pgadmin_data:
-  
+
 services:
+  # Serviços de banco de dados
   basketdb:
     image: redis
     container_name: basketdb
@@ -28,7 +29,27 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    
+
+  catalogdb:
+    image: mongo
+    container_name: catalogdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  orderdb:
+    image: mcr.microsoft.com/mssql/server
+    container_name: orderdb
+    environment:
+      SA_PASSWORD: "PasseOWork123@"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - "1433:1433"
+
+  # Serviços auxiliares
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -41,15 +62,6 @@ services:
     volumes:
       - pgadmin_data:/root/.pgadmin
 
-  catalogdb:
-    image: mongo
-    container_name: catalogdb
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
   portainer:
     image: portainer/portainer-ce
     container_name: portainer
@@ -61,13 +73,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
   
+  # Aplicações
   catalogapi:
     image: catalogapi
     container_name: catalogapi
     environment:
       - DatabaseSettings:ConnectionString=mongodb://catalogdb:27017
       - DatabaseSettings:DatabaseName=CatalogDb
-      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - catalogdb
     build:
@@ -76,6 +89,21 @@ services:
     ports:
       - 5000:5000
 
+  basketapi:
+    image: basketapi
+    container_name: basketapi
+    environment:
+      - CacheSettings:ConnectionString=basketdb:6379
+      - GrpcSettings:DiscountUrl=http://discountgrpc:5003
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - basketdb
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+    ports:
+      - 5001:5001
+
   discountapi:
     image: discountapi
     container_name: discountapi
@@ -83,7 +111,7 @@ services:
       - discountdb
     environment:
       - DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=root;Password=root;
-      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
       dockerfile: Services/Discount/Discount.API/Dockerfile
@@ -97,24 +125,9 @@ services:
       - discountdb
     environment:
       - DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=root;Password=root;
-      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
     ports:
       - 5003:5003
-
-  basketapi:
-    image: basketapi
-    container_name: basketapi
-    environment:
-      - CacheSettings:ConnectionString=basketdb:6379
-      - GrpcSettings:DiscountUrl=http://discountgrpc:5003
-      - environmentVariables:ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      - basketdb
-    build:
-      context: .
-      dockerfile: Services/Basket/Basket.API/Dockerfile
-    ports:
-      - 5001:5001

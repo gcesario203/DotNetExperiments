@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Ordering.Domain.Common
 {
     public abstract class EntityBase
     {
+        [Key]
         public int Id { get; protected set; }
         public string CreatedBy { get; set; }
 

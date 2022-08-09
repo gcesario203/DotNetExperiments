@@ -131,3 +131,17 @@ services:
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
     ports:
       - 5003:5003
+
+  orderapi:
+    image: orderapi
+    container_name: orderapi
+    depends_on:
+      - orderdb
+    environment:
+      - ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=PasseOWork123@;
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.API/Dockerfile
+    ports:
+      - 5004:5004

@@ -1,8 +1,10 @@
 using System.Net;
+using AutoMapper;
 using Basket.API.Entities;
 using Basket.API.Repositories.Interfaces;
 using Basket.API.Services;
 using Basket.API.Services.Interfaces;
+using EventBus.Messages.Events;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.API.Controllers
@@ -14,13 +16,16 @@ namespace Basket.API.Controllers
         private readonly IBasketRepository _repo;
         private readonly ILogger<BasketController> _logger;
 
+        private readonly IMapper _mapper;
+
         private readonly IDiscountService _discountService;
 
-        public BasketController(IBasketRepository repository, ILogger<BasketController> logger, IDiscountService discountService)
+        public BasketController(IBasketRepository repository, ILogger<BasketController> logger, IDiscountService discountService, IMapper mapper)
         {
             _repo = repository;
             _logger = logger;
             _discountService = discountService;
+            _mapper = mapper;
         }
 
         [Route("{userName}", Name = "GetCart")]
@@ -53,6 +58,22 @@ namespace Basket.API.Controllers
             await _repo.DeleteBasket(userName);
 
             return Ok();
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
+        {
+            var basket = await _repo.GetBasket(basketCheckout.UserName);
+
+            if(basket == null)
+                return BadRequest();
+
+            var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            
+            await _repo.DeleteBasket(basket.UserName);
+
+            return Accepted();
         }
     }
 }

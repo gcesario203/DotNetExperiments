@@ -5,6 +5,7 @@ using Basket.API.Repositories.Interfaces;
 using Basket.API.Services;
 using Basket.API.Services.Interfaces;
 using EventBus.Messages.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.API.Controllers
@@ -18,14 +19,21 @@ namespace Basket.API.Controllers
 
         private readonly IMapper _mapper;
 
+        private readonly IPublishEndpoint _publishEndPoint;
+
         private readonly IDiscountService _discountService;
 
-        public BasketController(IBasketRepository repository, ILogger<BasketController> logger, IDiscountService discountService, IMapper mapper)
+        public BasketController(IBasketRepository repository,
+                                ILogger<BasketController> logger,
+                                IDiscountService discountService,
+                                IMapper mapper,
+                                IPublishEndpoint publishEndpoint)
         {
             _repo = repository;
             _logger = logger;
             _discountService = discountService;
             _mapper = mapper;
+            _publishEndPoint = publishEndpoint;
         }
 
         [Route("{userName}", Name = "GetCart")]
@@ -70,6 +78,10 @@ namespace Basket.API.Controllers
                 return BadRequest();
 
             var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+
+            eventMessage.TotalPrice = basket.TotalPrice;
+            
+            await _publishEndPoint.Publish(eventMessage);
             
             await _repo.DeleteBasket(basket.UserName);
 

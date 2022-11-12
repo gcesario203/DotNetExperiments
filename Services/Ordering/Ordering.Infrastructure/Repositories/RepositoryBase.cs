@@ -56,7 +56,7 @@ namespace Ordering.Infrastructure.Repositories
         }
         public async Task<T> AddAsync(T entity)
         {
-            entity.LastModifiedBy = "Me";
+            entity.LastModifiedBy = "Me"; 
             _dbContext.Set<T>().Add(entity);
 
             await _dbContext.SaveChangesAsync();

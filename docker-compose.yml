@@ -106,6 +106,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - basketdb
+      - rabbitmq
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
@@ -145,6 +146,7 @@ services:
     container_name: orderapi
     depends_on:
       - orderdb
+      - rabbitmq
     environment:
       - ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=PasseOWork123@;
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672

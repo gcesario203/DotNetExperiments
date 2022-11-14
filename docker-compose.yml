@@ -26,7 +26,7 @@ services:
       - POSTGRES_DB=DiscountDb
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
@@ -35,7 +35,7 @@ services:
     container_name: catalogdb
     restart: always
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
       - mongo_data:/data/db
 
@@ -47,7 +47,7 @@ services:
       ACCEPT_EULA: "Y"
     restart: always
     ports:
-      - "1433:1433"
+      - 1433:1433
 
   rabbitmq:
     image: rabbitmq:management
@@ -65,7 +65,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     restart: always
     ports:
-      - "5050:80"
+      - 5050:80
     volumes:
       - pgadmin_data:/root/.pgadmin
 
@@ -94,14 +94,14 @@ services:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
     ports:
-      - 5000:5000
+      - 5000:80
 
   basketapi:
     image: basketapi
     container_name: basketapi
     environment:
       - CacheSettings:ConnectionString=basketdb:6379
-      - GrpcSettings:DiscountUrl=http://discountgrpc:5003
+      - GrpcSettings:DiscountUrl=http://discountgrpc
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
@@ -111,7 +111,7 @@ services:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
     ports:
-      - 5001:5001
+      - 5001:80
 
   discountapi:
     image: discountapi
@@ -125,7 +125,7 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.API/Dockerfile
     ports:
-      - 5002:5002
+      - 5002:80
 
   discountgrpc:
     image: discountgrpc
@@ -139,7 +139,7 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
     ports:
-      - 5003:5003
+      - 5003:80
 
   orderapi:
     image: orderapi
@@ -155,4 +155,4 @@ services:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
     ports:
-      - 5004:5004
+      - 5004:80

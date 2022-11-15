@@ -156,3 +156,21 @@ services:
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
     ports:
       - 5004:80
+
+  # Gateway && outros
+  ocelotapigw:
+    image: ocelotapigw
+    container_name: ocelotapigw
+    depends_on:
+      - orderapi
+      - discountapi
+      - basketapi
+      - catalogapi
+      - discountgrpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGateway/Dockerfile
+    ports:
+      - 5010:80

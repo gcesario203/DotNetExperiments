@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}",
+                "${workspaceFolder}/ApiGateways/OcelotApiGateway/OcelotApiGateway.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}",
+                "${workspaceFolder}/ApiGateways/OcelotApiGateway/OcelotApiGateway.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,65 +33,9 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Services/Catalog.API/Catalog.API.csproj"
+                "${workspaceFolder}/ApiGateways/OcelotApiGateway/OcelotApiGateway.csproj"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-            "type": "docker-build",
-            "label": "docker-build: debug",
-            "dependsOn": [
-                "build"
-            ],
-            "dockerBuild": {
-                "tag": "microservices:dev",
-                "target": "base",
-                "dockerfile": "${workspaceFolder}/Services/Basket.API/Dockerfile",
-                "context": "${workspaceFolder}",
-                "pull": true
-            },
-            "netCore": {
-                "appProject": "${workspaceFolder}/Services/Basket.API/Basket.API.csproj"
-            }
-        },
-        {
-            "type": "docker-build",
-            "label": "docker-build: release",
-            "dependsOn": [
-                "build"
-            ],
-            "dockerBuild": {
-                "tag": "microservices:latest",
-                "dockerfile": "${workspaceFolder}/Services/Basket.API/Dockerfile",
-                "context": "${workspaceFolder}",
-                "pull": true
-            },
-            "netCore": {
-                "appProject": "${workspaceFolder}/Services/Basket.API/Basket.API.csproj"
-            }
-        },
-        {
-            "type": "docker-run",
-            "label": "docker-run: debug",
-            "dependsOn": [
-                "docker-build: debug"
-            ],
-            "dockerRun": {},
-            "netCore": {
-                "appProject": "${workspaceFolder}/Services/Basket.API/Basket.API.csproj",
-                "enableDebugging": true
-            }
-        },
-        {
-            "type": "docker-run",
-            "label": "docker-run: release",
-            "dependsOn": [
-                "docker-build: release"
-            ],
-            "dockerRun": {},
-            "netCore": {
-                "appProject": "${workspaceFolder}/Services/Basket.API/Basket.API.csproj"
-            }
         }
     ]
 }
